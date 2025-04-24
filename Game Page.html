@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Golf Course</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient( 60% #228B22 60%, #228B22 40%);
+    }
+
+    header {
+      background-color: #006400;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .home-button {
+  
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  color: #006400;
+  border: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+    canvas {
+      display: block;
+      margin: 20px auto;
+      border: 4px solid #444;
+      background-color: #228B22;
+    }
+
+    #ui {
+      text-align: center;
+      color: white;
+      font-size: 1.1em;
+      margin-top: -10px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="home-button">Home Page</a>
+        <h1>Mini Golf Game</h1>
+      </header>
+    
+
+  <div id="ui">
+    <p>Hole: <span id="holeNum">1</span> | Strokes: <span id="strokes">0</span> | Par: <span id="par">3</span></p>
+  </div>
+
+  <canvas id="golfCanvas" width="700" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("golfCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const holeDisplay = document.getElementById("holeNum");
+    const strokesDisplay = document.getElementById("strokes");
+    const parDisplay = document.getElementById("par");
+
+    const levels = [
+      { ball: {x: 100, y: 200}, hole: {x: 600, y: 200}, par: 3 },
+      { ball: {x: 100, y: 100}, hole: {x: 600, y: 300}, par: 4 },
+      { ball: {x: 100, y: 300}, hole: {x: 600, y: 100}, par: 3 }
+    ];
+
+    let currentLevel = 0;
+    let strokes = 0;
+    let ball = { x: 0, y: 0, radius: 10, vx: 0, vy: 0 };
+    let hole = { x: 0, y: 0, radius: 15 };
+    let gameState = "aim";
+
+    function loadLevel(levelIndex) {
+      const level = levels[levelIndex];
+      ball.x = level.ball.x;
+      ball.y = level.ball.y;
+      ball.vx = 0;
+      ball.vy = 0;
+      hole.x = level.hole.x;
+      hole.y = level.hole.y;
+      strokes = 0;
+      gameState = "aim";
+
+      holeDisplay.textContent = levelIndex + 1;
+      strokesDisplay.textContent = strokes;
+      parDisplay.textContent = level.par;
+    }
+
+    canvas.addEventListener("click", (e) => {
+      if (gameState !== "aim") return;
+
+      const dx = e.offsetX - ball.x;
+      const dy = e.offsetY - ball.y;
+      ball.vx = dx / 20;
+      ball.vy = dy / 20;
+      strokes++;
+      strokesDisplay.textContent = strokes;
+      gameState = "moving";
+    });
+
+    function update() {
+      if (gameState === "moving") {
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        ball.vx *= 0.98;
+        ball.vy *= 0.98;
+
+        if (Math.abs(ball.vx) < 0.1 && Math.abs(ball.vy) < 0.1) {
+          ball.vx = 0;
+          ball.vy = 0;
+          gameState = "aim";
+        }
+
+        const dx = hole.x - ball.x;
+        const dy = hole.y - ball.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < hole.radius) {
+          if (currentLevel < levels.length - 1) {
+            alert(`🏌️ Hole ${currentLevel + 1} complete in ${strokes} strokes!`);
+            currentLevel++;
+            loadLevel(currentLevel);
+          } else {
+            alert(`🎉 You finished all holes! Final hole took ${strokes} strokes.`);
+            currentLevel = 0;
+            loadLevel(currentLevel);
+          }
+        }
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Hole
+      ctx.beginPath();
+      ctx.arc(hole.x, hole.y, hole.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "black";
+      ctx.fill();
+
+      // Ball
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+
+      // Aim line
+      if (gameState === "aim") {
+        canvas.style.cursor = "crosshair";
+      } else {
+        canvas.style.cursor = "default";
+      }
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    loadLevel(currentLevel);
+    loop();
+  </script>
+</body>
+</html>

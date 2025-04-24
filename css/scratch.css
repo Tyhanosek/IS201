@@ -1,0 +1,136 @@
+h1 {
+    height: 100px;
+    background-color: rgb(0, 100, 0); /* Augusta green */
+    text-align: center;
+    color: gold;
+    line-height: 100px;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h2 {
+    text-align: center;
+    color: rgb(0, 100, 0);
+    line-height: 80px;
+    font-size: 36px;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    border-bottom: 2px solid gold;
+    display: inline-block;
+}
+
+p {
+    text-align: center;
+    color: rgb(30, 30, 30);
+    font-size: 18px;
+    line-height: 1.5;
+    font-family: 'Georgia', serif;
+    margin: 20px;
+}
+
+a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h3 {
+    text-align: center;
+    color: rgb(70, 70, 70);
+    font-size: 22px;
+    line-height: 60px;
+    margin: 0;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+}
+
+.topright-button {
+   
+    top: 10px;
+    right: 10px;
+    background-color: rgb(0, 100, 0);
+    color: rgb(0, 100, 0);
+    padding: 5px 10px; /* Smaller padding */
+    font-size: 12px; /* Smaller text */
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px; /* Slightly smaller radius */
+}
+
+iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    border: 2px solid rgb(0, 100, 0);
+    border-radius: 10px;
+}
+
+ol {
+    font-size: 18px;
+    font-family: 'Georgia', serif;
+    color: rgb(30, 30, 30);
+    padding-left: 40px;
+}
+
+body {
+    background-color: rgb(245, 245, 235); /* Light neutral golf-course tone */
+    font-family: 'Georgia', serif;
+    margin: 0;
+}
+
+.footer {
+    background-color: rgb(0, 100, 0);
+    color: gold;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    width: 70%;
+    border: 3px solid gold;
+    border-radius: 10px;
+}
+
+nav {
+    padding: 10px 0;
+    overflow: hidden;
+    background-color: rgb(0, 100, 0);
+}
+
+nav a {
+    float: right;
+    color: gold;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    border-left: 1px solid gold;
+}
+
+nav a:hover {
+    background-color: gold;
+    color: rgb(0, 100, 0);
+}
+
+div {
+    font-family: 'Georgia', serif;
+}
